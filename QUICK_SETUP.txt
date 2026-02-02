@@ -1,0 +1,149 @@
+================================================================================
+QUICK SETUP INSTRUCTIONS - Email & SMS Notifications
+================================================================================
+
+YOUR CONTACT INFORMATION (Already Configured):
+- Email: muteteriangelique15@gmail.com
+- Phone: 0787827215
+
+================================================================================
+STEP 1: Create EmailJS Account (5 minutes)
+================================================================================
+
+1. Go to: https://www.emailjs.com/
+2. Click "Sign Up" (Free account allows 200 emails/month)
+3. Verify your email address
+
+================================================================================
+STEP 2: Connect Your Email Service
+================================================================================
+
+1. In EmailJS dashboard, click "Email Services"
+2. Click "Add New Service"
+3. Choose "Gmail" 
+4. Click "Connect Account" and sign in with: muteteriangelique15@gmail.com
+5. Copy the "Service ID" (looks like: service_xxxxxxx)
+
+================================================================================
+STEP 3: Create Email Templates
+================================================================================
+
+TEMPLATE 1: Contact Form Notification
+--------------------------------------
+1. Go to "Email Templates" → "Create New Template"
+2. Name: "Contact Form Notification"
+3. Subject: New Wedding Inquiry from {{from_name}}
+4. Content:
+   Hello,
+   
+   You have received a new wedding inquiry:
+   
+   Name: {{from_name}}
+   Email: {{from_email}}
+   Phone: {{user_phone}}
+   Service: {{service}}
+   Wedding Date: {{wedding_date}}
+   
+   Message:
+   {{message}}
+   
+   ---
+   Reply to: {{reply_to}}
+5. Save and copy the "Template ID" (looks like: template_xxxxxxx)
+
+TEMPLATE 2: SMS Notification
+----------------------------
+1. Create New Template
+2. Name: "SMS Notification"
+3. Subject: New Inquiry: {{from_name}}
+4. Content:
+   New wedding inquiry from {{from_name}} ({{from_email}}).
+   Service: {{service}}
+   Date: {{wedding_date}}
+   Phone: {{user_phone}}
+5. Save and copy the "Template ID"
+
+TEMPLATE 3: Newsletter Subscription
+------------------------------------
+1. Create New Template
+2. Name: "Newsletter Subscription"
+3. Subject: New Newsletter Subscription
+4. Content:
+   New subscriber: {{subscriber_email}}
+5. Save and copy the "Template ID"
+
+================================================================================
+STEP 4: Get Your Public Key
+================================================================================
+
+1. Go to "Account" → "General"
+2. Copy your "Public Key" (looks like: xxxxxxxx)
+
+================================================================================
+STEP 5: Update script.js File
+================================================================================
+
+Open script.js and find the EMAILJS_CONFIG section (near the top).
+
+Replace these values:
+
+PUBLIC_KEY: 'YOUR_PUBLIC_KEY'
+  → Replace with your Public Key from Step 4
+
+SERVICE_ID: 'YOUR_SERVICE_ID'
+  → Replace with your Service ID from Step 2
+
+CONTACT_TEMPLATE_ID: 'YOUR_TEMPLATE_ID'
+  → Replace with Template 1 ID from Step 3
+
+SMS_TEMPLATE_ID: 'YOUR_SMS_TEMPLATE_ID'
+  → Replace with Template 2 ID from Step 3
+
+NEWSLETTER_TEMPLATE_ID: 'YOUR_NEWSLETTER_TEMPLATE_ID'
+  → Replace with Template 3 ID from Step 3
+
+SMS_GATEWAY: '@sms.gateway.com'
+  → Update based on your phone carrier:
+     - MTN Rwanda: '@sms.mtn.co.rw'
+     - Airtel Rwanda: '@sms.airtel.co.rw'
+     - Or check with your carrier for email-to-SMS gateway
+
+================================================================================
+STEP 6: Test It!
+================================================================================
+
+1. Open your website
+2. Fill out the contact form
+3. Check your email: muteteriangelique15@gmail.com
+4. Check your phone: 0787827215 (for SMS)
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Problem: Emails not arriving
+Solution: 
+- Check spam folder
+- Verify all IDs are correct in script.js
+- Check EmailJS dashboard for delivery logs
+
+Problem: SMS not working
+Solution:
+- Verify SMS gateway format is correct for your carrier
+- Some carriers may not support email-to-SMS
+- Consider using a paid SMS service like Twilio
+
+Problem: Form shows "not configured" message
+Solution:
+- Make sure you replaced ALL placeholders in EMAILJS_CONFIG
+- Check that EmailJS library is loaded (check browser console)
+
+================================================================================
+NEED HELP?
+================================================================================
+
+- EmailJS Documentation: https://www.emailjs.com/docs/
+- EmailJS Support: support@emailjs.com
+- Check EMAIL_SETUP_GUIDE.md for detailed instructions
+
+================================================================================
