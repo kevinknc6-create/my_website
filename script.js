@@ -100,15 +100,17 @@ window.addEventListener('DOMContentLoaded', () => {
 // CONTACT FORM WITH EMAILJS
 // ============================================
 
-// Initialize EmailJS
-// Replace these with your actual EmailJS credentials
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY'; // Get from EmailJS Account → General
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID'; // Get from EmailJS Email Services
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // Get from EmailJS Email Templates
+// Icyitonderwa: Nakuyeho za "spaces" zari mu mpera za Keys zawe
+const EMAILJS_PUBLIC_KEY = 'aIQXCqq_72diZf-dp'; 
+const EMAILJS_SERVICE_ID = 'service_8x5z18r'; 
+const EMAILJS_TEMPLATE_ID = 'template_c2syf7h'; 
 
-// Initialize EmailJS when the page loads
+// Initialize EmailJS
 if (typeof emailjs !== 'undefined') {
     emailjs.init(EMAILJS_PUBLIC_KEY);
+    console.log('EmailJS initialized successfully.');
+} else {
+    console.error('EmailJS SDK not loaded. Check your script tag in index.html.');
 }
 
 const contactForm = document.getElementById('contactForm');
@@ -119,38 +121,29 @@ if (contactForm && formMessage) {
     contactForm.addEventListener('submit', async e => {
         e.preventDefault();
 
+        // Gufata amakuru mu ifishi
         const name = contactForm.name.value.trim();
         const email = contactForm.email.value.trim();
         const phone = contactForm.phone.value.trim();
-        const service = contactForm.service.value.trim();
+        const service = contactForm.service.value;
         const date = contactForm.date.value;
         const budget = contactForm.budget.value.trim();
         const message = contactForm.message.value.trim();
 
-        // Validation
+        // Validation y'ibanze
         if (!name || !email || !phone || !message) {
-            formMessage.textContent = 'Please fill in all required fields.';
+            formMessage.textContent = 'Mwandike amakuru yose asabwa.';
             formMessage.style.color = '#fca5a5';
             formMessage.style.display = 'block';
             return;
         }
 
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            formMessage.textContent = 'Please enter a valid email address.';
-            formMessage.style.color = '#fca5a5';
-            formMessage.style.display = 'block';
-            return;
-        }
-
-        // Disable submit button and show loading state
+        // Kwerekana ko ubutumwa buri kugenda
         if (submitButton) {
             submitButton.disabled = true;
             submitButton.textContent = 'Sending...';
         }
 
-        // Prepare email template parameters
         const templateParams = {
             from_name: name,
             from_email: email,
@@ -163,36 +156,21 @@ if (contactForm && formMessage) {
         };
 
         try {
-            // Check if EmailJS is loaded and credentials are set
-            if (typeof emailjs === 'undefined') {
-                throw new Error('EmailJS library not loaded. Please check your internet connection.');
-            }
-
-            if (EMAILJS_PUBLIC_KEY === 'aIQXCqq_72diZf-dp ' || 
-                EMAILJS_SERVICE_ID === 'service_8x5z18r' || 
-                EMAILJS_TEMPLATE_ID === 'template_c2syf7h') {
-                throw new Error('EmailJS credentials not configured. Please update script.js with your EmailJS credentials.');
-            }
-
-            // Send email via EmailJS
+            // Kohereza ubutumwa
             await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
 
-            // Success message
-            formMessage.textContent = `Thank you, ${name}! Your inquiry has been received. We will contact you shortly.`;
+            // Niba bigenze neza
+            formMessage.textContent = `Murakoze ${name}! Ubutumwa bwanyu bwageze kwa Mahit Studios. Turabuvugisha vuba.`;
             formMessage.style.color = '#bbf7d0';
             formMessage.style.display = 'block';
             contactForm.reset();
 
-            // Scroll to message
-            formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
         } catch (error) {
             console.error('EmailJS Error:', error);
-            formMessage.textContent = 'Sorry, there was an error sending your message. Please try again or contact us directly at hello@umukamezistudio.com';
+            formMessage.textContent = 'Hari ikibazo cyabayeyo. Mwagerageza nanone cyangwa mukatwandikira kuri mahitstudios4@gmail.com';
             formMessage.style.color = '#fca5a5';
             formMessage.style.display = 'block';
         } finally {
-            // Re-enable submit button
             if (submitButton) {
                 submitButton.disabled = false;
                 submitButton.textContent = 'Send Inquiry';
